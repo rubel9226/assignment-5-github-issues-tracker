@@ -43,6 +43,7 @@ const btnWorks = (id) => {
 };
 
 
+
 const countIssus = () => {
 
     const issues = cardContainer.children.length;
@@ -63,7 +64,7 @@ const loadSearchData = () => {
 }
 
 const modelShow = (id) => {
-    
+ console.log('hi all');
 }
 
 const loadData = () => {
