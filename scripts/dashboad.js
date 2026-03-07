@@ -20,6 +20,13 @@ const lebelsButton = (array) => {
     return elements;
 }
 
+const date = (date) => {
+    const newDate = new Date(date);
+    const formatted = newDate.toLocaleDateString('en-GB');
+    return formatted;
+
+}
+
 
 const btnWorks = (id) => {
     console.log(id);
@@ -63,8 +70,63 @@ const loadSearchData = () => {
 
 }
 
-const modelShow = (id) => {
- console.log('hi all');
+
+const modalShow = (id) => {
+    const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`
+    // console.log(url);
+
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displayModal(data.data));
+}
+
+// "data": {
+// "id": 6,
+// "title": "Fix broken image uploads",
+// "description": "Users are unable to upload images larger than 5MB. Need to increase the file size limit or add compression.",
+// "status": "open",
+// "labels": [
+// "bug"
+// ],
+// "priority": "medium",
+// "author": "emma_ui",
+// "assignee": "",
+// "createdAt": "2024-01-19T15:30:00Z",
+// "updatedAt": "2024-01-19T15:30:00Z"
+// }
+const displayModal = (data) => {
+    const modalContainer = document.getElementById('modal-container');
+    console.log(modalContainer);
+    modalContainer.innerHTML = '';
+
+    const modal = document.createElement('div');
+    modal.classList = 'space-y-6';
+    modal.innerHTML = `
+        <div class="space-y-2">
+            <h2 class="text-2xl font-bold">${data.title}</h2>
+            <div class="text-[12px] text-gray-400 space-x-2">
+                <span class="font-medium ${data.status === 'open' ? 'bg-[#00a96e]' : 'bg-purple-500'} text-white py-1.5 rounded-full px-3">${data.status === 'open' ? 'Opened' : 'Closed'}</span> 
+                <span class="inline-block w-1 h-1 rounded-full bg-gray-400"></span> 
+                <span class="">${data.status === 'open' ? 'Opened' : 'Closed'} by ${data.author}</span>
+                <span class="inline-block w-1 h-1 rounded-full bg-gray-400"></span> 
+                <span class="">${date(data.createdAt)}</span>
+            </div>
+        </div>
+        <div class='flex gap-2'>${lebelsButton(data.labels)}</div>
+        <p class="text-gray-400">${data.description}</p>
+        <div class="bg-[#F8FAFC] flex p-4">
+            <div class="w-[47%]">
+                <p class="text-gray-400">Assignee:</p>
+                <h2 class="font-semibold">${data.assignee ? data.assignee : 'Not Available'}</h2>
+            </div>
+            <div>
+                <p class="text-gray-400">Priority: </p>
+                <button class="text-[12px] font-medium ${data.priority == 'high' ? 'bg-red-500' : data.priority == 'medium' ? 'bg-amber-300': 'bg-gray-400'} uppercase text-white py-1.5 rounded-full w-[70px] text-center">${data.priority}</button>
+            </div>
+        </div>
+    `;
+    modalContainer.appendChild(modal);
+    show_modal.showModal()
 }
 
 const loadData = () => {
@@ -96,8 +158,10 @@ const displayCardOpen = (datas) => {
         const card = document.createElement('div');
 
         if(data.status == 'open'){
-            card.classList = 'card p-4 bg-white border-t-[3px] border-green-500 space-y-3 shadow-lg';
+            card.classList = '';
+            
             card.innerHTML = `
+            <div onclick="modalShow(${data.id})" class="card p-4 h-full bg-white border-t-[3px] border-green-500 space-y-3 shadow-lg">
                 <div class="flex justify-between">
                     <div>
                         <img src="./assets/Open-Status.png" alt="">
@@ -114,8 +178,9 @@ const displayCardOpen = (datas) => {
     
                 <div>
                     <p class="text-sm text-gray-400">#${data.id} by ${data.author}</p>
-                    <p class="text-sm text-gray-400">${data.createdAt}</p>
+                    <p class="text-sm text-gray-400">${date(data.createdAt)}</p>
                 </div>
+            </div>
             `;
             cardContainer.appendChild(card);
         }
@@ -134,8 +199,9 @@ const displayCardClosed = (datas) => {
         const card = document.createElement('div');
 
         if(data.status === 'closed'){
-            card.classList = 'card p-4 bg-white border-t-[3px] border-purple-500 space-y-3 shadow-lg';
+            card.classList = '';
             card.innerHTML = `
+            <div onclick="modalShow(${data.id})" class='card p-4 h-full bg-white border-t-[3px] border-purple-500 space-y-3 shadow-lg'>
                 <div class="flex justify-between">
                     <div>
                         <img src="./assets/Closed- Status .png" alt="">
@@ -152,8 +218,9 @@ const displayCardClosed = (datas) => {
 
                 <div>
                     <p class="text-sm text-gray-400">#${data.id} by ${data.author}</p>
-                    <p class="text-sm text-gray-400">${data.createdAt}</p>
+                    <p class="text-sm text-gray-400">${date(data.createdAt)}</p>
                 </div>
+            </div>
             `;
             cardContainer.appendChild(card);
         }
@@ -171,8 +238,9 @@ const displayCardAll = (datas) => {
         const card = document.createElement('div');
 
         if(data.status == 'open'){
-            card.classList = 'card p-4 bg-white border-t-[3px] border-green-500 space-y-3 shadow-lg';
+            card.classList = '';
             card.innerHTML = `
+            <div onclick="modalShow(${data.id})" class="card p-4 h-full bg-white border-t-[3px] border-green-500 space-y-3 shadow-lg">
                 <div class="flex justify-between">
                     <div>
                         <img src="./assets/Open-Status.png" alt="">
@@ -189,13 +257,15 @@ const displayCardAll = (datas) => {
     
                 <div>
                     <p class="text-sm text-gray-400">#${data.id} by ${data.author}</p>
-                    <p class="text-sm text-gray-400">${data.createdAt}</p>
+                    <p class="text-sm text-gray-400">${date(data.createdAt)}</p>
                 </div>
+            </div>
             `;
             cardContainer.appendChild(card);
         }else if(data.status === 'closed'){
-            card.classList = 'card p-4 bg-white border-t-[3px] border-purple-500 space-y-3 shadow-lg';
+            card.classList = '';
             card.innerHTML = `
+            <div onclick="modalShow(${data.id})" class='card p-4 h-full bg-white border-t-[3px] border-purple-500 space-y-3 shadow-lg'>
                 <div class="flex justify-between">
                     <div>
                         <img src="./assets/Closed- Status .png" alt="">
@@ -212,8 +282,9 @@ const displayCardAll = (datas) => {
 
                 <div>
                     <p class="text-sm text-gray-400">#${data.id} by ${data.author}</p>
-                    <p class="text-sm text-gray-400">${data.createdAt}</p>
+                    <p class="text-sm text-gray-400">${date(data.createdAt)}</p>
                 </div>
+            </div>
             `;
             cardContainer.appendChild(card);
         }
@@ -224,7 +295,5 @@ const displayCardAll = (datas) => {
 }
 
 
-
-my_modal_5.showModal()
 loadData();
 countIssus();
