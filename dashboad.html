@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GigHub Issues Tracker</title>
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="shortcut icon" href="./assets/github-logo.png" type="image/x-icon">
+
+    <!-- daisyUi CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- font awesome cdn  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- font cdn  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+</head>
+<body class="bg-[#f8fafc] min-h-screen bg-purple-200">
+
+    <header class="w-full bg-indigo-50 py-5 shadow- border border-b border-[#E9E9E9]">
+        <section class="w-11/12 mx-auto flex justify-between">
+            <div class="flex items-center space-x-1 ">
+                <img class="w-9" src="./assets/github-logo.png" alt="">
+                <h2 class="text-2xl font-semibold">GigHub Issues Tracker</h2>
+            </div>
+            <div class="flex gap-4 items-center">
+                <label class="input">
+                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g
+                        stroke-linejoin="round"
+                        stroke-linecap="round"
+                        stroke-width="2.5"
+                        fill="none"
+                        stroke="currentColor"
+                        >
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                        </g>
+                    </svg>
+                    <input id="input-search" type="search" required placeholder="Search" />
+                </label>
+                <button id="btn-search" class="btn btn-primary"><i class="fa-solid fa-plus"></i> New Issue</button>
+            </div>
+
+        </section>
+    </header>
+
+    <section class="mt-[60px] w-10/12 mx-auto bg-indigo-50        p-6 shadow-sm">
+        <div class="space-x-1">
+            <button onclick="btnWorks('btn-all')" id="btn-all" class="btn w-[120px] btn-primary"></i>All</button>
+            <button onclick="btnWorks('btn-open')" id="btn-open" class="btn w-[120px] btn-soft"></i>Open</button>
+            <button onclick="btnWorks('btn-closed')" id="btn-closed" class="btn w-[120px] btn-soft"></i>Closed</button>
+        </div>
+    </section>
+
+    <section class="mt-4 w-10/12 mx-auto">
+        <section class=" bg-indigo-50 p-6 shadow-sm flex justify-between">
+            <div class=" flex items-center gap-2">
+                <div class="w-[50px] h-[50px] rounded-full text-center content-center bg-[#ECE4FF]">
+                    <img class="inline-block" src="./assets/Aperture.png" alt="">
+                </div>
+                <div class="space-y-1">
+                    <h4 class="text-[20px] font-semibold"><span id="issues">0</span> Issues</h4>
+                    <p class="text-gray-400">Track and manage your project issues</p>
+                </div>
+            </div>
+
+            <div class="flex gap-4 items-center">
+                <h3><span class="h-3 w-3 rounded-full bg-green-500 inline-block"></span> Open</h3>
+                <h3><span class="h-3 w-3 rounded-full bg-purple-500 inline-block"></span> Closed</h3>
+            </div>
+        </section>
+    </section>
+ 
+    <section id="card-container" class="mt-4 w-10/12 mx-auto bg-indigo-50 p-6 shadow-sm grid grid-cols-4 gap-3"></section>
+
+    <section>
+        <!-- Open the modal using ID.showModal() method -->
+        <button class="btn" onclick="my_modal_5.showModal()">open modal</button>
+        <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+            <div class="modal-box">
+                <div id="modal-conatainer">
+                    <div class="space-y-6">
+                        <div class="space-y-2">
+                            <h2 class="text-2xl font-bold">Fix broken image uploads</h2>
+                            <div class="text-[12px] text-gray-400 space-x-2">
+                                <span class="font-medium bg-[#00a96e] text-white py-1.5 rounded-full px-3">Opened</span> 
+                                <span class="inline-block w-1 h-1 rounded-full bg-gray-400"></span> 
+                                <span class="">Opened by Fahim Ahmed</span>
+                                <span class="inline-block w-1 h-1 rounded-full bg-gray-400"></span> 
+                                <span class="">22/02/2026</span>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn">BUG</button>
+                            <button class="btn">HELP WANTED</button>
+                        </div>
+                        <p class="text-gray-400">The navigation menu doesn't collapse properly on mobile devices. Need to fix the responsive behavior.</p>
+                        <div class="bg-[#F8FAFC] flex p-4">
+                            <div class="w-[47%]">
+                                <p class="text-gray-400">Assignee:</p>
+                                <h2 class="font-semibold">Fahim Ahmed</h2>
+                            </div>
+                            <div>
+                                <p class="text-gray-400">Priority: </p>
+                                <button class="text-[12px] font-medium bg-red-500 text-white py-1.5 rounded-full px-4">HIGH</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-action">
+                    <form method="dialog">
+                        <!-- if there is a button in form, it will close the modal -->
+                        <button class="btn btn-primary">Close</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
+    </section>
+
+    <script src="./scripts/dashboad.js"></script>
+</body>
+</html>

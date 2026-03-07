@@ -5,17 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GitHub Issues Tracker | Login</title>
     <link rel="stylesheet" href="./styles/style.css">
+    <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon">
 
     <!-- daisyUi CDN -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <!-- font awesome cdn  -->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <!-- font cdn  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
 </head>
-<body>
-    <h1 class="text-9xl">Hi all</h1>
+<body class="bg-[#f8fafc] min-h-screen content-center">
+    <div class="container max-w-[520px] mx-auto bg-white shadow-lg p-8 space-y-6 rounded-lg">
+        <header class="space-y-6 text-center">
+            <div><img class="inline-block" src="./assets/github-logo.png" alt=""></div>
+            <div class="space-y-2">
+                <h3 class="text-2xl font-semibold">GigHub Issues Tracker</h3>
+                <p class="text-[#64748b]">Sign in to manage your issues</p>
+            </div>
+        </header>
+
+        <section class=" w-11/12 mx-auto space-y-4">
+            <fieldset class="fieldset">
+                <legend class="fieldset-legend">Username</legend>
+                <input id="input-username" value="admin" type="text" class="input w-full" placeholder="Enter Username" />
+                <p class="label text-[#4a00ff]">Default: admin</p>
+            </fieldset>
+            <fieldset class="fieldset">
+                <legend class="fieldset-legend">Password</legend>
+                <input id="input-password" value="admin123" type="password" class="input w-full" placeholder="Enter Password" />
+                <p class="label text-[#4a00ff]">Default: admin123</p>
+            </fieldset>
+            <button id="btn-submit" class="btn btn-primary w-full mt-2">Primary</button>
+        </section>
+
+        <section class="flex items-center gap-10px">
+            <hr class="flex-1 border-none h-[1px] bg-gray-200 m-0">
+            <samp class="flex-nowrap px-4 py-0">OR</samp>
+            <hr class="flex-1 border-none h-[1px] bg-gray-200 m-0">
+        </section>
+
+        <section class="space-y-2 text-center">
+            <p class="text-[#64748b]">Demo Credentials</p>
+
+            <div class="bg-gray-100 p-6 text-center">
+                <h5><span class="font-semibold">Username:</span> admin</h5>
+                <h5><span class="font-semibold">Password:</span> admin123</h5>
+            </div>
+        </section>
+    </div>
+
+    <script src="./scripts/login.js"></script>
 </body>
 </html>
