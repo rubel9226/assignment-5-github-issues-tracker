@@ -29,7 +29,7 @@ const date = (date) => {
 
 
 const btnWorks = (id) => {
-    console.log(id);
+    const inputSearch = document.getElementById('input-search').value = '';
     // remove classes
     document.getElementById('btn-all').classList.remove('btn-primary');
     document.getElementById('btn-all').classList.add('btn-soft');
@@ -62,12 +62,89 @@ const countIssus = () => {
 
 document.getElementById('btn-search').addEventListener('click', () => {
     const inputSearch = document.getElementById('input-search');
-    const input = inputSearch.value;
-    console.log(input);
-})
+    const input = inputSearch.value.trim().toLowerCase();
+    const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${encodeURIComponent(input)}`;
+    console.log(url);
 
-const loadSearchData = () => {
+    fetch(url)
+        .then(res => res.json())
+        .then(data => loadSearchData(data.data));
+});
 
+
+const loadSearchData = (datas) => {
+        // remove classes
+    document.getElementById('btn-all').classList.remove('btn-primary');
+    document.getElementById('btn-all').classList.add('btn-soft');
+    document.getElementById('btn-open').classList.remove('btn-primary');
+    document.getElementById('btn-open').classList.add('btn-soft');
+    document.getElementById('btn-closed').classList.remove('btn-primary');
+    document.getElementById('btn-closed').classList.add('btn-soft');
+
+    
+
+
+    cardContainer.innerHTML = '';
+    datas.forEach(data => {
+        // console.log(data.status);
+
+        const card = document.createElement('div');
+
+        if(data.status == 'open'){
+            card.classList = '';
+            card.innerHTML = `
+            <div onclick="modalShow(${data.id})" class="card p-4 h-full bg-white border-t-[3px] border-green-500 space-y-3 shadow-lg">
+                <div class="flex justify-between">
+                    <div>
+                        <img src="./assets/Open-Status.png" alt="">
+                    </div>
+                    <div class="w-25 uppercase p-1.5 rounded-full font-bold text-center ${data.priority == 'high' ? 'bg-[#FEECEC] text-[#EF4444]' : data.priority == 'medium' ? 'bg-[#FFF6D1] text-[#F59E0B]' : 'bg-[#EEEFF2] text-[#9CA3AF]'}">${data.priority}</div>
+                </div>
+    
+                <div class="space-y-2">
+                    <h3 class="font-semibold">${data.title}</h3>
+                    <p class="text-sm text-gray-400 line-clamp-2">${data.description}</p>
+                </div>
+                <div class='flex gap-2 flex-wrap'>${lebelsButton(data.labels)}</div>
+                <hr class="text-gray-400 ">
+    
+                <div>
+                    <p class="text-sm text-gray-400">#${data.id} by ${data.author}</p>
+                    <p class="text-sm text-gray-400">${date(data.createdAt)}</p>
+                </div>
+            </div>
+            `;
+            cardContainer.appendChild(card);
+        }else if(data.status === 'closed'){
+            card.classList = '';
+            card.innerHTML = `
+            <div onclick="modalShow(${data.id})" class='card p-4 h-full bg-white border-t-[3px] border-purple-500 space-y-3 shadow-lg'>
+                <div class="flex justify-between">
+                    <div>
+                        <img src="./assets/Closed- Status .png" alt="">
+                    </div>
+                    <div class="w-25 uppercase p-1.5 rounded-full font-bold text-center ${data.priority == 'high' ? 'bg-[#FEECEC] text-[#EF4444]' : data.priority == 'medium' ? 'bg-[#FFF6D1] text-[#F59E0B]' : 'bg-[#EEEFF2] text-[#9CA3AF]'}">${data.priority}</div>
+                </div>
+
+                <div class="space-y-2">
+                    <h3 class="font-semibold">${data.title}</h3>
+                    <p class="text-sm text-gray-400 line-clamp-2">${data.description}</p>
+                </div>
+                <div class='flex gap-2 flex-wrap'>${lebelsButton(data.labels)}</div>
+                <hr class="text-gray-400 ">
+
+                <div>
+                    <p class="text-sm text-gray-400">#${data.id} by ${data.author}</p>
+                    <p class="text-sm text-gray-400">${date(data.createdAt)}</p>
+                </div>
+            </div>
+            `;
+            cardContainer.appendChild(card);
+        }
+
+    });
+    
+    countIssus()
 }
 
 
@@ -80,23 +157,10 @@ const modalShow = (id) => {
         .then(data => displayModal(data.data));
 }
 
-// "data": {
-// "id": 6,
-// "title": "Fix broken image uploads",
-// "description": "Users are unable to upload images larger than 5MB. Need to increase the file size limit or add compression.",
-// "status": "open",
-// "labels": [
-// "bug"
-// ],
-// "priority": "medium",
-// "author": "emma_ui",
-// "assignee": "",
-// "createdAt": "2024-01-19T15:30:00Z",
-// "updatedAt": "2024-01-19T15:30:00Z"
-// }
+
 const displayModal = (data) => {
     const modalContainer = document.getElementById('modal-container');
-    console.log(modalContainer);
+    // console.log(modalContainer);
     modalContainer.innerHTML = '';
 
     const modal = document.createElement('div');
@@ -107,7 +171,7 @@ const displayModal = (data) => {
             <div class="text-[12px] text-gray-400 space-x-2">
                 <span class="font-medium ${data.status === 'open' ? 'bg-[#00a96e]' : 'bg-purple-500'} text-white py-1.5 rounded-full px-3">${data.status === 'open' ? 'Opened' : 'Closed'}</span> 
                 <span class="inline-block w-1 h-1 rounded-full bg-gray-400"></span> 
-                <span class="">${data.status === 'open' ? 'Opened' : 'Closed'} by ${data.author}</span>
+                <span class="">${data.status === 'open' ? 'Opened' : 'Closed'} by <span class="font-bold text-black">${data.author}</span></span>
                 <span class="inline-block w-1 h-1 rounded-full bg-gray-400"></span> 
                 <span class="">${date(data.createdAt)}</span>
             </div>
@@ -137,10 +201,10 @@ const loadData = () => {
         .then(data => {
             if(status === 'btn-all'){
                 displayCardAll(data.data);
-                console.log(status);
+                // console.log(status);
             }else if(status == 'btn-open'){
                 displayCardOpen(data.data);
-                console.log(status);
+                // console.log(status);
             }else if(status === 'btn-closed'){
                 displayCardClosed(data.data);
             }
@@ -230,7 +294,7 @@ const displayCardClosed = (datas) => {
 
 
 const displayCardAll = (datas) => {
-    console.log(datas);
+    // console.log(datas);
     cardContainer.innerHTML = '';
     datas.forEach(data => {
         // console.log(data.status);
