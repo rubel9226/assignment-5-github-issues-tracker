@@ -10,7 +10,7 @@ document.getElementById('btn-submit').addEventListener('click', ()=> {
     console.log(password);
 
     if(username === 'admin' && password === 'admin123'){
-        window.location.replace('/dashboad.html');
+        window.location.replace('./dashboad.html');
         return;
     }else{
         alert('Invalid Password and username');
