@@ -13,7 +13,8 @@ document.getElementById('btn-submit').addEventListener('click', ()=> {
         // window.location.pathname.replace('./dashboad.html');
         // window.location.pathname = './dashboad.html/';
         // console.log(location)
-        window.location.replace('./dashboad.html'); 
+        // window.location.replace('./dashboad.html'); 
+        window.location.href = './dashboad.html';
         return;
     }else{
         alert('Invalid Password and username');
