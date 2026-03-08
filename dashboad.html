@@ -23,10 +23,10 @@
 <body class="bg-[#f8fafc] min-h-screen bg-purple-200">
 
     <header class="w-full bg-indigo-50 py-5 shadow- border border-b border-[#E9E9E9]">
-        <section class="w-11/12 mx-auto flex justify-between">
-            <div class="flex items-center space-x-1 ">
+        <section class="w-11/12 mx-auto flex flex-col gap-6 md:flex-row justify-between">
+            <div class="flex justify-center items-center space-x-1 ">
                 <img class="w-9" src="./assets/github-logo.png" alt="">
-                <h2 class="text-2xl font-semibold">GigHub Issues Tracker</h2>
+                <h2 class="text-2xl  font-semibold">GigHub Issues Tracker</h2>
             </div>
             <div class="flex gap-4 items-center">
                 <label class="input">
@@ -52,23 +52,23 @@
         </section>
     </header>
 
-    <section class="mt-[60px] w-10/12 mx-auto bg-indigo-50        p-6 shadow-sm">
+    <section class="mt-4 md:mt-15 w-11/12 md:w-10/12 mx-auto bg-indigo-50        p-6 shadow-sm">
         <div class="space-x-1">
-            <button onclick="btnWorks('btn-all')" id="btn-all" class="btn w-[120px] btn-primary"></i>All</button>
-            <button onclick="btnWorks('btn-open')" id="btn-open" class="btn w-[120px] btn-soft"></i>Open</button>
-            <button onclick="btnWorks('btn-closed')" id="btn-closed" class="btn w-[120px] btn-soft"></i>Closed</button>
+            <button onclick="btnWorks('btn-all')" id="btn-all" class="btn w-[90px] md:w-[120px] btn-primary"></i>All</button>
+            <button onclick="btnWorks('btn-open')" id="btn-open" class="btn w-[100px] md:w-[120px] btn-soft"></i>Open</button>
+            <button onclick="btnWorks('btn-closed')" id="btn-closed" class="btn w-[100px] md:w-[120px] btn-soft"></i>Closed</button>
         </div>
     </section>
 
-    <section class="mt-4 w-10/12 mx-auto">
-        <section class=" bg-indigo-50 p-6 shadow-sm flex justify-between">
+    <section class="mt-4 w-11/12 md:w-10/12 mx-auto">
+        <section class=" bg-indigo-50 p-6 shadow-sm flex flex-col md:flex-row gap-5 justify-between">
             <div class=" flex items-center gap-2">
                 <div class="w-[50px] h-[50px] rounded-full text-center content-center bg-[#ECE4FF]">
                     <img class="inline-block" src="./assets/Aperture.png" alt="">
                 </div>
                 <div class="space-y-1">
                     <h4 class="text-[20px] font-semibold"><span id="issues">0</span> Issues</h4>
-                    <p class="text-gray-400">Track and manage your project issues</p>
+                    <p class="text-gray-400 text-sm md:text-base">Track and manage your project issues</p>
                 </div>
             </div>
 
@@ -79,14 +79,14 @@
         </section>
     </section>
  
-    <section id="card-container" class="mt-4 w-10/12 mx-auto bg-indigo-50 p-6 shadow-sm grid grid-cols-4 gap-3"></section>
+    <section id="card-container" class="mt-4 w-11/12 md:w-10/12 mx-auto bg-indigo-50 p-6 shadow-sm grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3"></section>
 
-    <section>
+    <section class="z-10">
         <!-- Open the modal using ID.showModal() method -->
         <!-- <button class="btn" onclick="my_modal_5.showModal()">open modal</button> -->
         
         
-        <dialog id="show_modal" class="modal modal-bottom sm:modal-middle">
+        <dialog id="show_modal" class="modal z-10 modal-bottom sm:modal-middle">
             <div class="modal-box">
                 <div id="modal-container">
 
@@ -127,8 +127,20 @@
                     </form>
                 </div>
             </div>
+            <section id="load-container1" class="z-99999! bg-[rgba(0,0,0,.70)] hidden min-h-screen w-full fixed top-0 left-0 text-center content-center">
+
+               <span class="loading loading-spinner w-50 text-white loading-xl"></span>
+           
+           </section>
         </dialog>
     </section>
+
+    <section id="load-container" class="z-99999! bg-[rgba(0,0,0,.70)] hidden min-h-screen w-full fixed top-0 left-0 text-center content-center">
+
+       <span class="loading loading-spinner w-50 text-white loading-xl"></span>
+    
+    </section>
+   
 
     <script src="./scripts/dashboad.js"></script>
 </body>

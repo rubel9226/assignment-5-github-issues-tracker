@@ -20,6 +20,20 @@ const lebelsButton = (array) => {
     return elements;
 }
 
+
+const manageSpinner = (status) => {
+    if(status){
+        console.log('true')
+        document.getElementById('load-container').classList.remove('hidden');
+        document.getElementById('load-container1').classList.remove('hidden');
+    }else{
+        console.log('false')
+        document.getElementById('load-container').classList.add('hidden');
+        document.getElementById('load-container1').classList.add('hidden');
+    }
+}
+
+
 const date = (date) => {
     const newDate = new Date(date);
     const formatted = newDate.toLocaleDateString('en-GB');
@@ -61,6 +75,7 @@ const countIssus = () => {
 }
 
 document.getElementById('btn-search').addEventListener('click', () => {
+    manageSpinner(true);
     const inputSearch = document.getElementById('input-search');
     const input = inputSearch.value.trim().toLowerCase();
     const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${encodeURIComponent(input)}`;
@@ -73,6 +88,7 @@ document.getElementById('btn-search').addEventListener('click', () => {
 
 
 const loadSearchData = (datas) => {
+    
         // remove classes
     document.getElementById('btn-all').classList.remove('btn-primary');
     document.getElementById('btn-all').classList.add('btn-soft');
@@ -143,12 +159,13 @@ const loadSearchData = (datas) => {
         }
 
     });
-    
+    manageSpinner(false);
     countIssus()
 }
 
 
 const modalShow = (id) => {
+    manageSpinner(true);
     const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`
     // console.log(url);
 
@@ -190,10 +207,12 @@ const displayModal = (data) => {
         </div>
     `;
     modalContainer.appendChild(modal);
-    show_modal.showModal()
+    show_modal.showModal();
+    manageSpinner(false);
 }
 
 const loadData = () => {
+    manageSpinner(true)
     const url = 'https://phi-lab-server.vercel.app/api/v1/lab/issues';
 
     fetch(url)
@@ -250,7 +269,8 @@ const displayCardOpen = (datas) => {
         }
 
     });
-    countIssus()
+    countIssus();
+    manageSpinner(false);
 }
 
 
@@ -289,7 +309,8 @@ const displayCardClosed = (datas) => {
             cardContainer.appendChild(card);
         }
     });
-    countIssus()
+    countIssus();
+    manageSpinner(false);
 }
 
 
@@ -355,9 +376,11 @@ const displayCardAll = (datas) => {
 
     });
     
-    countIssus()
+    countIssus();
+    manageSpinner(false);
 }
 
 
 loadData();
 countIssus();
+manageSpinner(false);
